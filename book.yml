@@ -1,0 +1,22 @@
+---
+- hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: "install docker"
+      command: yum install docker -y
+      ignore_errors: yes
+    - name: "start docker engine"
+      command: service docker start
+      ignore_errors: yes
+    - name: "Pulling the jenkins docker image "
+      command: docker pull jenkins/jenkins
+      ignore_errors: yes
+    - name: "Running the jenkins docker container"
+      command: docker run -p 8080:8080 -d --name jenkins-server jenkins/jenkins:latest
+    - name: "checking docker status"
+      command: docker ps -a
+      register: out
+    - debug: var=out.stdout_lines
+    - name: "install docker"
+      command: yum install git -y
