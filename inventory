@@ -1,2 +1,8 @@
-13.126.77.231
+[all:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
+[inventory:children]
+Balaji co
+
+[Balaji co]
+13.126.77.231
